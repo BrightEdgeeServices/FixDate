@@ -6,7 +6,7 @@
 
 [project]
     name = 'FixDate'
-    version = '2.0.1'
+    version = '2.1.0'
     description = 'Fix a date and present it in specified format.'
 authors = [
     { name = "Hendrik du Toit", email = "hendrik@brightedge.co.za" }
