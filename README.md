@@ -7,7 +7,40 @@
 | PyPI         | [![][pypi_release_img]][pypi_release_lnk] [![][pypi_py_versions_img]][pypi_py_versions_lnk] [![][pypi_format_img]][pypi_format_lnk] [![][pypi_downloads_img]][pypi_downloads_lnk]             |
 | Github       | [![][gh_issues_img]][gh_issues_lnk] [![][gh_language_img]][gh_language_lnk] [![][gh_last_commit_img]][gh_last_commit_lnk] [![][gh_deployment_img]][gh_deployment_lnk]                         |
 
-Template for Python projects.
+# Overview
+
+`FixDateIt` is a Python library designed to intelligently correct and normalize date strings into a standard format. It handles various common date formats, separators, and even attempts to fix common data entry errors.
+
+### Key Features
+
+- **Format Normalization:** Converts various input date formats (e.g., YMD, DMY) into a consistent output format (defaulting to `%Y%m%d`).
+- **Flexible Separators:** Automatically handles different separators like `/`, `-`, and `.`.
+- **Heuristic Corrections:**
+  - **Century Guessing:** Automatically adds the correct century (1900s or 2000s) for two-digit years.
+  - **Day/Month Swapping:** Detects and fixes cases where day and month might have been swapped (e.g., if month > 12).
+  - **Out-of-range Day Correction:** Can optionally cap days to the maximum valid day for a given month (e.g., setting Feb 30th to Feb 28th/29th).
+- **Numeric String Parsing:** Handles compact numeric strings (e.g., "20230101" or "010123") by intelligently inserting separators before parsing.
+- **Month Name Support:** Recognizes three-letter month abbreviations (e.g., "JAN", "FEB").
+
+### Basic Usage
+
+```python
+from fixdate import FixDate
+
+# Basic conversion
+fd = FixDate("01-15-2023", p_in_format="MDY")
+print(fd.date_str)  # Output: 20230115
+
+# Fixing swapped day/month
+fd = FixDate("31/12/2023", p_in_format="MDY")
+print(fd.date_str)  # Output: 20231231
+
+# Handling abbreviations
+fd = FixDate("15-JAN-23", p_in_format="DMY")
+print(fd.date_str)  # Output: 20230115
+```
+
+______________________________________________________________________
 
 [cicd_codestyle_img]: https://img.shields.io/badge/code%20style-black-000000.svg "Black"
 [cicd_codestyle_lnk]: https://github.com/psf/black "Black"
